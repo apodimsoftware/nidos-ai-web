@@ -52,16 +52,26 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
+				taskbar: {
+					DEFAULT: 'hsl(var(--taskbar))',
+					foreground: 'hsl(var(--taskbar-foreground))',
+					hover: 'hsl(var(--taskbar-hover))',
+					active: 'hsl(var(--taskbar-active))'
+				},
+				glass: {
+					bg: 'hsl(var(--glass-bg))',
+					border: 'hsl(var(--glass-border))'
 				}
+			},
+			backgroundImage: {
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-secondary': 'var(--gradient-secondary)',
+				'gradient-glass': 'var(--gradient-glass)'
+			},
+			boxShadow: {
+				'window': 'var(--shadow-window)',
+				'taskbar': 'var(--shadow-taskbar)',
+				'glass': 'var(--shadow-glass)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

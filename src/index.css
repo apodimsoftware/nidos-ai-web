@@ -2,57 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* NidOS Experience - Operating System Simulator Design System
+All colors MUST be HSL for proper theming support.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* OS Desktop Background */
+    --background: 225 25% 8%;
+    --foreground: 220 15% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* OS Window System */
+    --card: 225 20% 12%;
+    --card-foreground: 220 15% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* OS Popover & Context Menus */
+    --popover: 225 25% 10%;
+    --popover-foreground: 220 15% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* OS Primary Accent (Blue theme) */
+    --primary: 217 91% 60%;
+    --primary-foreground: 220 15% 95%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* OS Secondary Elements */
+    --secondary: 225 15% 18%;
+    --secondary-foreground: 220 15% 85%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* OS Muted Elements */
+    --muted: 225 15% 15%;
+    --muted-foreground: 220 10% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* OS Accent Colors */
+    --accent: 225 20% 16%;
+    --accent-foreground: 217 91% 70%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* OS System Alerts */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 220 15% 95%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* OS Borders & Inputs */
+    --border: 225 15% 20%;
+    --input: 225 15% 18%;
+    --ring: 217 91% 60%;
 
-    --radius: 0.5rem;
+    /* OS Border Radius */
+    --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* OS Taskbar & Sidebar */
+    --taskbar: 225 25% 8%;
+    --taskbar-foreground: 220 15% 85%;
+    --taskbar-hover: 225 20% 15%;
+    --taskbar-active: 217 91% 60%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* OS Glass Effects */
+    --glass-bg: 225 25% 10%;
+    --glass-border: 220 30% 25%;
+    
+    /* OS Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(238 85% 65%));
+    --gradient-secondary: linear-gradient(135deg, hsl(225 25% 8%), hsl(225 20% 12%));
+    --gradient-glass: linear-gradient(135deg, hsla(225, 25%, 10%, 0.8), hsla(225, 20%, 15%, 0.6));
+    
+    /* OS Shadows */
+    --shadow-window: 0 20px 40px -10px hsla(225, 50%, 5%, 0.4);
+    --shadow-taskbar: 0 -2px 20px hsla(225, 50%, 5%, 0.3);
+    --shadow-glass: 0 8px 32px hsla(225, 50%, 5%, 0.2);
+    
+    /* OS Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
   .dark {
@@ -100,6 +118,95 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  }
+}
+
+@layer components {
+  /* OS Glass Effect Components */
+  .glass-panel {
+    @apply backdrop-blur-xl border border-white/10;
+    background: var(--gradient-glass);
+    box-shadow: var(--shadow-glass);
+  }
+  
+  .os-window {
+    @apply glass-panel rounded-lg;
+    box-shadow: var(--shadow-window);
+  }
+  
+  .taskbar-item {
+    @apply flex items-center justify-center p-2 rounded-lg transition-all duration-200;
+    background: transparent;
+  }
+  
+  .taskbar-item:hover {
+    background: hsl(var(--taskbar-hover));
+  }
+  
+  .taskbar-item.active {
+    background: hsl(var(--taskbar-active) / 0.2);
+    border: 1px solid hsl(var(--taskbar-active) / 0.3);
+  }
+  
+  /* OS Animation Classes */
+  .os-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  
+  .os-slide-up {
+    animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  .os-bounce-in {
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  }
+}
+
+@layer utilities {
+  .transition-os {
+    transition: var(--transition-smooth);
+  }
+  
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
