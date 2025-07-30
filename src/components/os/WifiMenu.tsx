@@ -17,10 +17,6 @@ const WifiMenu = ({ onClose }: WifiMenuProps) => {
   const [networks, setNetworks] = useState<Network[]>([
     { name: 'HOME_NETWORK_5G', signal: 4, secured: true, connected: true },
     { name: 'NidOS_Guest', signal: 3, secured: false, connected: false },
-    { name: 'Starbucks_WiFi', signal: 2, secured: false, connected: false },
-    { name: 'iPhone_Hotspot', signal: 3, secured: true, connected: false },
-    { name: 'NETGEAR_2.4GHz', signal: 1, secured: true, connected: false },
-    { name: 'xfinitywifi', signal: 2, secured: false, connected: false },
   ]);
 
   const connectToNetwork = (networkName: string) => {
