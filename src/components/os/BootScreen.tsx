@@ -102,8 +102,16 @@ const BootScreen = ({ onBootComplete }: BootScreenProps) => {
         )}
 
         {/* Copyright */}
-        <div className="absolute bottom-8 text-xs text-gray-500 font-mono">
-          Copyright © 2024 NidOS Technologies. All rights reserved.
+        <div className="absolute bottom-8 text-xs text-gray-500 font-mono text-center">
+          Made with Lovable AI. It's also{' '}
+          <a 
+            href="https://github.com/apodimsoftware/nidos-ai/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            open source
+          </a>
         </div>
       </div>
     </div>

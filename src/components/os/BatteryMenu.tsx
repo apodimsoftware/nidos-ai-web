@@ -3,11 +3,12 @@ import { Battery, Zap, Power } from 'lucide-react';
 
 interface BatteryMenuProps {
   onClose: () => void;
+  isCharging: boolean;
+  setIsCharging: (charging: boolean) => void;
 }
 
-const BatteryMenu = ({ onClose }: BatteryMenuProps) => {
+const BatteryMenu = ({ onClose, isCharging, setIsCharging }: BatteryMenuProps) => {
   const [batteryLevel, setBatteryLevel] = useState(85);
-  const [isCharging, setIsCharging] = useState(false);
   const [powerMode, setPowerMode] = useState<'balanced' | 'performance' | 'saver'>('balanced');
 
   const getBatteryColor = () => {

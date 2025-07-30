@@ -15,6 +15,7 @@ interface TaskbarProps {
 const Taskbar = ({ onStartClick, openWindows, onWindowClick, onWindowClose }: TaskbarProps) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [activeMenu, setActiveMenu] = useState<'wifi' | 'volume' | 'battery' | null>(null);
+  const [isCharging, setIsCharging] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -49,7 +50,13 @@ const Taskbar = ({ onStartClick, openWindows, onWindowClick, onWindowClose }: Ta
       {/* System Menus */}
       {activeMenu === 'wifi' && <WifiMenu onClose={() => setActiveMenu(null)} />}
       {activeMenu === 'volume' && <VolumeMenu onClose={() => setActiveMenu(null)} />}
-      {activeMenu === 'battery' && <BatteryMenu onClose={() => setActiveMenu(null)} />}
+      {activeMenu === 'battery' && (
+        <BatteryMenu 
+          onClose={() => setActiveMenu(null)} 
+          isCharging={isCharging}
+          setIsCharging={setIsCharging}
+        />
+      )}
 
       <div 
         className="fixed bottom-0 left-0 right-0 h-12 glass-panel backdrop-blur-xl border-t border-white/10 flex items-center px-2 z-50"

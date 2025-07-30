@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { Minus, Square, X, Maximize2 } from 'lucide-react';
 
 interface WindowProps {
@@ -33,31 +33,35 @@ const Window = ({ id, title, children, onClose, onMinimize, onFocus, zIndex }: W
     }
   };
 
-  const handleMouseMove = (e: MouseEvent) => {
+  const handleMouseMove = useCallback((e: MouseEvent) => {
     if (isDragging && !isMaximized) {
       setPosition({
         x: e.clientX - dragOffset.x,
         y: Math.max(0, e.clientY - dragOffset.y),
       });
     }
-  };
+  }, [isDragging, isMaximized, dragOffset]);
 
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
 
   const toggleMaximize = () => {
     setIsMaximized(!isMaximized);
   };
 
   // Add event listeners for dragging
-  if (isDragging) {
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-  } else {
-    document.removeEventListener('mousemove', handleMouseMove);
-    document.removeEventListener('mouseup', handleMouseUp);
-  }
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+    
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, handleMouseMove, handleMouseUp]);
 
   const windowStyle = isMaximized
     ? { top: 0, left: 0, width: '100vw', height: 'calc(100vh - 48px)' }
