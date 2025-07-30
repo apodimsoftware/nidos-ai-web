@@ -1,14 +1,27 @@
 import { useState, useEffect } from 'react';
 import BootScreen from './BootScreen';
+import BiosScreen from './BiosScreen';
 import Desktop from './Desktop';
 
-type OSState = 'booting' | 'desktop' | 'shutdown';
+type OSState = 'booting' | 'bios' | 'desktop' | 'shutdown';
 
 const NidOS = () => {
   const [osState, setOSState] = useState<OSState>('booting');
 
   const handleBootComplete = () => {
     setOSState('desktop');
+  };
+
+  const handleEnterBios = () => {
+    setOSState('bios');
+  };
+
+  const handleExitBios = () => {
+    setOSState('desktop');
+  };
+
+  const handleReboot = () => {
+    setOSState('booting');
   };
 
   // Handle system events
@@ -44,7 +57,11 @@ const NidOS = () => {
   return (
     <div className="w-screen h-screen overflow-hidden select-none">
       {osState === 'booting' && (
-        <BootScreen onBootComplete={handleBootComplete} />
+        <BootScreen onBootComplete={handleBootComplete} onEnterBios={handleEnterBios} />
+      )}
+      
+      {osState === 'bios' && (
+        <BiosScreen onExitBios={handleExitBios} onReboot={handleReboot} />
       )}
       
       {osState === 'desktop' && (

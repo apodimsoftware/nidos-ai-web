@@ -3,9 +3,10 @@ import { Loader2, CheckCircle } from 'lucide-react';
 
 interface BootScreenProps {
   onBootComplete: () => void;
+  onEnterBios: () => void;
 }
 
-const BootScreen = ({ onBootComplete }: BootScreenProps) => {
+const BootScreen = ({ onBootComplete, onEnterBios }: BootScreenProps) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [showProgress, setShowProgress] = useState(false);
 
@@ -46,7 +47,19 @@ const BootScreen = ({ onBootComplete }: BootScreenProps) => {
     <div className="fixed inset-0 bg-black flex flex-col items-center justify-center text-white">
       {/* BIOS-style header */}
       <div className="absolute top-8 left-8 text-sm font-mono text-gray-400">
-        NidOS BIOS v2.1.0 - Build 20241128
+        NidOS BIOS v0.0.1 - Build 20241128
+      </div>
+      
+      {/* BIOS entry button */}
+      <div className="absolute top-8 right-8 text-sm font-mono text-gray-400">
+        Press{' '}
+        <button 
+          onClick={onEnterBios}
+          className="text-primary hover:text-primary/80 font-bold bg-gray-800/50 px-2 py-1 rounded border border-gray-600 hover:border-primary/50 transition-colors"
+        >
+          F2
+        </button>
+        {' '}to enter BIOS
       </div>
 
       {/* Main boot content */}
