@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronRight, Save, RotateCcw, Power } from 'lucide-react';
 
 interface BiosScreenProps {
@@ -10,15 +10,36 @@ const BiosScreen = ({ onExitBios, onReboot }: BiosScreenProps) => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [bootOrder, setBootOrder] = useState(['Hard Drive', 'USB Drive', 'Network']);
   
-  // Interactive BIOS settings state
-  const [settings, setSettings] = useState({
-    virtualization: true,
-    hyperThreading: true,
-    fastBoot: true,
-    secureBoot: true,
-    tpm: true,
-    passwordProtection: false
-  });
+  // Load settings from localStorage or use defaults
+  const loadSettings = () => {
+    try {
+      const saved = localStorage.getItem('nidos-bios-settings');
+      if (saved) {
+        return JSON.parse(saved);
+      }
+    } catch (error) {
+      console.warn('Failed to load BIOS settings from localStorage');
+    }
+    return {
+      virtualization: true,
+      hyperThreading: true,
+      fastBoot: true,
+      secureBoot: true,
+      tmp: true,
+      passwordProtection: false
+    };
+  };
+
+  const [settings, setSettings] = useState(loadSettings);
+
+  // Save settings to localStorage whenever they change
+  useEffect(() => {
+    try {
+      localStorage.setItem('nidos-bios-settings', JSON.stringify(settings));
+    } catch (error) {
+      console.warn('Failed to save BIOS settings to localStorage');
+    }
+  }, [settings]);
 
   const toggleSetting = (setting: keyof typeof settings) => {
     setSettings(prev => ({
@@ -58,7 +79,7 @@ const BiosScreen = ({ onExitBios, onReboot }: BiosScreenProps) => {
       case 'main':
         return (
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
               <div>
                 <h3 className="text-cyan-400 mb-2">System Information</h3>
                 <div className="space-y-1 text-sm">
@@ -161,12 +182,12 @@ const BiosScreen = ({ onExitBios, onReboot }: BiosScreenProps) => {
                 </span>
               </button>
               <button
-                onClick={() => toggleSetting('tpm')}
+                onClick={() => toggleSetting('tmp')}
                 className="w-full flex justify-between items-center p-2 hover:bg-gray-800/50 rounded transition-colors"
               >
                 <span>TPM 2.0</span>
-                <span className={settings.tpm ? "text-green-400" : "text-red-400"}>
-                  [{settings.tpm ? 'Enabled' : 'Disabled'}]
+                <span className={settings.tmp ? "text-green-400" : "text-red-400"}>
+                  [{settings.tmp ? 'Enabled' : 'Disabled'}]
                 </span>
               </button>
               <button
@@ -216,30 +237,30 @@ const BiosScreen = ({ onExitBios, onReboot }: BiosScreenProps) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black text-white font-mono">
+    <div className="fixed inset-0 bg-black text-white font-mono text-xs sm:text-sm">
       {/* Header */}
-      <div className="bg-cyan-600 text-black px-4 py-2 flex justify-between items-center">
-        <div className="font-bold">NidOS BIOS Setup Utility v0.0.1</div>
-        <div className="text-sm">Use ← → to navigate tabs, Enter to select, Esc to exit</div>
+      <div className="bg-cyan-600 text-black px-2 sm:px-4 py-1 sm:py-2 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+        <div className="font-bold text-sm sm:text-base">NidOS BIOS Setup Utility v0.0.1</div>
+        <div className="text-xs sm:text-sm hidden sm:block">Use ← → to navigate tabs, Enter to select, Esc to exit</div>
       </div>
 
-      <div className="flex h-[calc(100vh-48px)]">
+      <div className="flex flex-col sm:flex-row h-[calc(100vh-40px)] sm:h-[calc(100vh-48px)]">
         {/* Sidebar */}
-        <div className="w-48 bg-gray-900 border-r border-gray-700">
-          <div className="p-4">
-            <div className="space-y-1">
+        <div className="w-full sm:w-48 bg-gray-900 border-b sm:border-b-0 sm:border-r border-gray-700">
+          <div className="p-2 sm:p-4">
+            <div className="flex sm:flex-col space-x-1 sm:space-x-0 sm:space-y-1 overflow-x-auto sm:overflow-x-visible">
               {tabs.map((tab, index) => (
                 <button
                   key={tab.key}
                   onClick={() => setSelectedTab(index)}
-                  className={`w-full text-left p-2 rounded flex items-center justify-between transition-colors ${
+                  className={`whitespace-nowrap sm:w-full text-left p-1 sm:p-2 rounded flex items-center justify-between transition-colors text-xs sm:text-sm ${
                     selectedTab === index
                       ? 'bg-cyan-600 text-black'
                       : 'hover:bg-gray-800 text-gray-300'
                   }`}
                 >
-                  <span>{tab.name}</span>
-                  {selectedTab === index && <ChevronRight className="w-4 h-4" />}
+                  <span className="px-2 sm:px-0">{tab.name}</span>
+                  {selectedTab === index && <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 hidden sm:block" />}
                 </button>
               ))}
             </div>
@@ -247,16 +268,16 @@ const BiosScreen = ({ onExitBios, onReboot }: BiosScreenProps) => {
         </div>
 
         {/* Main content */}
-        <div className="flex-1 p-6">
+        <div className="flex-1 p-3 sm:p-6 overflow-y-auto">
           {renderTabContent()}
         </div>
       </div>
 
       {/* Footer */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 p-2">
-        <div className="flex justify-between text-xs text-gray-400">
-          <div>F2: Setup | F10: Save & Exit | Esc: Exit without saving</div>
-          <div>NidOS Technologies © 2024</div>
+      <div className="absolute bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 p-1 sm:p-2">
+        <div className="flex flex-col sm:flex-row justify-between text-xs text-gray-400 space-y-1 sm:space-y-0">
+          <div className="text-center sm:text-left">F2: Setup | F10: Save & Exit | Esc: Exit</div>
+          <div className="text-center sm:text-right">NidOS Technologies © 2024</div>
         </div>
       </div>
     </div>
