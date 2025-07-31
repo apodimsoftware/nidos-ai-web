@@ -9,6 +9,23 @@ interface BiosScreenProps {
 const BiosScreen = ({ onExitBios, onReboot }: BiosScreenProps) => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [bootOrder, setBootOrder] = useState(['Hard Drive', 'USB Drive', 'Network']);
+  
+  // Interactive BIOS settings state
+  const [settings, setSettings] = useState({
+    virtualization: true,
+    hyperThreading: true,
+    fastBoot: true,
+    secureBoot: true,
+    tpm: true,
+    passwordProtection: false
+  });
+
+  const toggleSetting = (setting: keyof typeof settings) => {
+    setSettings(prev => ({
+      ...prev,
+      [setting]: !prev[setting]
+    }));
+  };
 
   const tabs = [
     { name: 'Main', key: 'main' },
@@ -47,9 +64,9 @@ const BiosScreen = ({ onExitBios, onReboot }: BiosScreenProps) => {
                 <div className="space-y-1 text-sm">
                   <div>BIOS Version: v0.0.1</div>
                   <div>Build Date: 20241128</div>
-                  <div>CPU: Intel Core i7-12700K</div>
+                  <div>CPU: Ipel Core i7-12700K</div>
                   <div>Memory: 16384 MB</div>
-                  <div>Storage: 1TB NVMe SSD</div>
+                  <div>Storage: 1TB NVMe SSD (Samshung)</div>
                 </div>
               </div>
               <div>
@@ -99,18 +116,33 @@ const BiosScreen = ({ onExitBios, onReboot }: BiosScreenProps) => {
           <div className="space-y-4">
             <h3 className="text-cyan-400 mb-4">Advanced Settings</h3>
             <div className="space-y-3">
-              <div className="flex justify-between items-center">
+              <button
+                onClick={() => toggleSetting('virtualization')}
+                className="w-full flex justify-between items-center p-2 hover:bg-gray-800/50 rounded transition-colors"
+              >
                 <span>Enable Virtualization</span>
-                <span className="text-green-400">[Enabled]</span>
-              </div>
-              <div className="flex justify-between items-center">
+                <span className={settings.virtualization ? "text-green-400" : "text-red-400"}>
+                  [{settings.virtualization ? 'Enabled' : 'Disabled'}]
+                </span>
+              </button>
+              <button
+                onClick={() => toggleSetting('hyperThreading')}
+                className="w-full flex justify-between items-center p-2 hover:bg-gray-800/50 rounded transition-colors"
+              >
                 <span>Hyper-Threading</span>
-                <span className="text-green-400">[Enabled]</span>
-              </div>
-              <div className="flex justify-between items-center">
+                <span className={settings.hyperThreading ? "text-green-400" : "text-red-400"}>
+                  [{settings.hyperThreading ? 'Enabled' : 'Disabled'}]
+                </span>
+              </button>
+              <button
+                onClick={() => toggleSetting('fastBoot')}
+                className="w-full flex justify-between items-center p-2 hover:bg-gray-800/50 rounded transition-colors"
+              >
                 <span>Fast Boot</span>
-                <span className="text-green-400">[Enabled]</span>
-              </div>
+                <span className={settings.fastBoot ? "text-green-400" : "text-red-400"}>
+                  [{settings.fastBoot ? 'Enabled' : 'Disabled'}]
+                </span>
+              </button>
             </div>
           </div>
         );
@@ -119,18 +151,33 @@ const BiosScreen = ({ onExitBios, onReboot }: BiosScreenProps) => {
           <div className="space-y-4">
             <h3 className="text-cyan-400 mb-4">Security Settings</h3>
             <div className="space-y-3">
-              <div className="flex justify-between items-center">
+              <button
+                onClick={() => toggleSetting('secureBoot')}
+                className="w-full flex justify-between items-center p-2 hover:bg-gray-800/50 rounded transition-colors"
+              >
                 <span>Secure Boot</span>
-                <span className="text-green-400">[Enabled]</span>
-              </div>
-              <div className="flex justify-between items-center">
+                <span className={settings.secureBoot ? "text-green-400" : "text-red-400"}>
+                  [{settings.secureBoot ? 'Enabled' : 'Disabled'}]
+                </span>
+              </button>
+              <button
+                onClick={() => toggleSetting('tpm')}
+                className="w-full flex justify-between items-center p-2 hover:bg-gray-800/50 rounded transition-colors"
+              >
                 <span>TPM 2.0</span>
-                <span className="text-green-400">[Enabled]</span>
-              </div>
-              <div className="flex justify-between items-center">
+                <span className={settings.tpm ? "text-green-400" : "text-red-400"}>
+                  [{settings.tpm ? 'Enabled' : 'Disabled'}]
+                </span>
+              </button>
+              <button
+                onClick={() => toggleSetting('passwordProtection')}
+                className="w-full flex justify-between items-center p-2 hover:bg-gray-800/50 rounded transition-colors"
+              >
                 <span>Password Protection</span>
-                <span className="text-red-400">[Disabled]</span>
-              </div>
+                <span className={settings.passwordProtection ? "text-green-400" : "text-red-400"}>
+                  [{settings.passwordProtection ? 'Enabled' : 'Disabled'}]
+                </span>
+              </button>
             </div>
           </div>
         );
