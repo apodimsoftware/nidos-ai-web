@@ -1,33 +1,35 @@
 import { useState } from 'react';
 import { Monitor, Palette, Volume2, Wifi, Shield, User, Bell, Globe } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Settings = () => {
   const [activeSection, setActiveSection] = useState('display');
+  const { t } = useLanguage();
 
   const sections = [
-    { id: 'display', name: 'Display', icon: Monitor },
-    { id: 'appearance', name: 'Appearance', icon: Palette },
-    { id: 'sound', name: 'Sound', icon: Volume2 },
-    { id: 'network', name: 'Network', icon: Wifi },
-    { id: 'security', name: 'Security', icon: Shield },
-    { id: 'accounts', name: 'Accounts', icon: User },
-    { id: 'notifications', name: 'Notifications', icon: Bell },
-    { id: 'language', name: 'Language', icon: Globe },
+    { id: 'display', name: t('display'), icon: Monitor },
+    { id: 'appearance', name: t('appearance'), icon: Palette },
+    { id: 'sound', name: t('sound'), icon: Volume2 },
+    { id: 'network', name: t('network'), icon: Wifi },
+    { id: 'security', name: t('security'), icon: Shield },
+    { id: 'accounts', name: t('accounts'), icon: User },
+    { id: 'notifications', name: t('notifications'), icon: Bell },
+    { id: 'language', name: t('language'), icon: Globe },
   ];
 
   const renderDisplaySettings = () => (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-semibold mb-4">Display Settings</h3>
+        <h3 className="text-lg font-semibold mb-4">{t('displaySettings')}</h3>
         
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <span className="font-medium">Resolution</span>
-              <p className="text-sm text-muted-foreground">Choose your display resolution</p>
+              <span className="font-medium">{t('resolution')}</span>
+              <p className="text-sm text-muted-foreground">{t('resolutionDesc')}</p>
             </div>
             <select className="bg-accent border border-border rounded-lg px-3 py-2">
-              <option>1920 x 1080 (Recommended)</option>
+              <option>1920 x 1080 ({t('recommended')})</option>
               <option>1366 x 768</option>
               <option>2560 x 1440</option>
             </select>
@@ -35,11 +37,11 @@ const Settings = () => {
 
           <div className="flex items-center justify-between">
             <div>
-              <span className="font-medium">Scale</span>
-              <p className="text-sm text-muted-foreground">Make text and apps larger or smaller</p>
+              <span className="font-medium">{t('scale')}</span>
+              <p className="text-sm text-muted-foreground">{t('scaleDesc')}</p>
             </div>
             <select className="bg-accent border border-border rounded-lg px-3 py-2">
-              <option>100% (Recommended)</option>
+              <option>100% ({t('recommended')})</option>
               <option>125%</option>
               <option>150%</option>
             </select>
@@ -47,12 +49,12 @@ const Settings = () => {
 
           <div className="flex items-center justify-between">
             <div>
-              <span className="font-medium">Orientation</span>
-              <p className="text-sm text-muted-foreground">Screen orientation</p>
+              <span className="font-medium">{t('orientation')}</span>
+              <p className="text-sm text-muted-foreground">{t('orientationDesc')}</p>
             </div>
             <select className="bg-accent border border-border rounded-lg px-3 py-2">
-              <option>Landscape</option>
-              <option>Portrait</option>
+              <option>{t('landscape')}</option>
+              <option>{t('portrait')}</option>
             </select>
           </div>
         </div>
@@ -63,25 +65,25 @@ const Settings = () => {
   const renderAppearanceSettings = () => (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-semibold mb-4">Appearance Settings</h3>
+        <h3 className="text-lg font-semibold mb-4">{t('appearanceSettings')}</h3>
         
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <span className="font-medium">Theme</span>
-              <p className="text-sm text-muted-foreground">Choose your color theme</p>
+              <span className="font-medium">{t('theme')}</span>
+              <p className="text-sm text-muted-foreground">{t('themeDesc')}</p>
             </div>
             <select className="bg-accent border border-border rounded-lg px-3 py-2">
-              <option>Dark (Current)</option>
-              <option>Light</option>
-              <option>Auto</option>
+              <option>{t('darkCurrent')}</option>
+              <option>{t('light')}</option>
+              <option>{t('auto')}</option>
             </select>
           </div>
 
           <div className="flex items-center justify-between">
             <div>
-              <span className="font-medium">Accent Color</span>
-              <p className="text-sm text-muted-foreground">Customize your accent color</p>
+              <span className="font-medium">{t('accentColor')}</span>
+              <p className="text-sm text-muted-foreground">{t('accentColorDesc')}</p>
             </div>
             <div className="flex space-x-2">
               {['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'].map(color => (
@@ -96,8 +98,8 @@ const Settings = () => {
 
           <div className="flex items-center justify-between">
             <div>
-              <span className="font-medium">Transparency Effects</span>
-              <p className="text-sm text-muted-foreground">Enable glass and blur effects</p>
+              <span className="font-medium">{t('transparencyEffects')}</span>
+              <p className="text-sm text-muted-foreground">{t('transparencyDesc')}</p>
             </div>
             <input type="checkbox" defaultChecked className="rounded" />
           </div>
@@ -109,12 +111,12 @@ const Settings = () => {
   const renderSoundSettings = () => (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-semibold mb-4">Sound Settings</h3>
+        <h3 className="text-lg font-semibold mb-4">{t('soundSettingsPage')}</h3>
         
         <div className="space-y-4">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="font-medium">Master Volume</span>
+              <span className="font-medium">{t('masterVolume')}</span>
               <span className="text-sm text-muted-foreground">75%</span>
             </div>
             <input type="range" defaultValue={75} className="w-full" />
@@ -122,7 +124,7 @@ const Settings = () => {
 
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="font-medium">System Sounds</span>
+              <span className="font-medium">{t('systemSounds')}</span>
               <span className="text-sm text-muted-foreground">50%</span>
             </div>
             <input type="range" defaultValue={50} className="w-full" />
@@ -130,8 +132,8 @@ const Settings = () => {
 
           <div className="flex items-center justify-between">
             <div>
-              <span className="font-medium">Notification Sounds</span>
-              <p className="text-sm text-muted-foreground">Play sounds for notifications</p>
+              <span className="font-medium">{t('notificationSounds')}</span>
+              <p className="text-sm text-muted-foreground">{t('notificationSoundsDesc')}</p>
             </div>
             <input type="checkbox" defaultChecked className="rounded" />
           </div>
@@ -139,6 +141,35 @@ const Settings = () => {
       </div>
     </div>
   );
+
+  const renderLanguageSettings = () => {
+    const { language, setLanguage } = useLanguage();
+    
+    return (
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-lg font-semibold mb-4">{t('languageSettings')}</h3>
+          
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="font-medium">{t('systemLanguage')}</span>
+                <p className="text-sm text-muted-foreground">{t('systemLanguageDesc')}</p>
+              </div>
+              <select 
+                className="bg-accent border border-border rounded-lg px-3 py-2"
+                value={language}
+                onChange={(e) => setLanguage(e.target.value as 'en' | 'el')}
+              >
+                <option value="en">English</option>
+                <option value="el">Ελληνικά (Greek)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   const renderContent = () => {
     switch (activeSection) {
@@ -148,12 +179,14 @@ const Settings = () => {
         return renderAppearanceSettings();
       case 'sound':
         return renderSoundSettings();
+      case 'language':
+        return renderLanguageSettings();
       default:
         return (
           <div className="flex items-center justify-center h-64 text-muted-foreground">
             <div className="text-center">
               <p>Settings for {sections.find(s => s.id === activeSection)?.name}</p>
-              <p className="text-sm mt-2">This section is coming soon!</p>
+              <p className="text-sm mt-2">{t('comingSoon')}</p>
             </div>
           </div>
         );
@@ -165,7 +198,7 @@ const Settings = () => {
       {/* Sidebar */}
       <div className="w-64 border-r border-border">
         <div className="p-4 border-b border-border">
-          <h2 className="font-semibold">Settings</h2>
+          <h2 className="font-semibold">{t('settings')}</h2>
         </div>
         
         <div className="p-2">
