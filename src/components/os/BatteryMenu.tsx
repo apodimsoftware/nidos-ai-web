@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Battery, Zap, Power } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface BatteryMenuProps {
   onClose: () => void;
@@ -8,6 +9,7 @@ interface BatteryMenuProps {
 }
 
 const BatteryMenu = ({ onClose, isCharging, setIsCharging }: BatteryMenuProps) => {
+  const { t } = useLanguage();
   const [batteryLevel, setBatteryLevel] = useState(85);
   const [powerMode, setPowerMode] = useState<'balanced' | 'performance' | 'saver'>('balanced');
 
@@ -19,10 +21,10 @@ const BatteryMenu = ({ onClose, isCharging, setIsCharging }: BatteryMenuProps) =
   };
 
   const getTimeRemaining = () => {
-    if (isCharging) return '2h 15m until full';
+    if (isCharging) return `2${t('hour')} 15${t('minutes')} ${t('remaining')}`;
     const hours = Math.floor((batteryLevel / 100) * 8);
     const minutes = Math.floor(((batteryLevel / 100) * 8 % 1) * 60);
-    return `${hours}h ${minutes}m remaining`;
+    return `${hours}${t('hour')} ${minutes}${t('minutes')} ${t('remaining')}`;
   };
 
   return (
@@ -34,7 +36,7 @@ const BatteryMenu = ({ onClose, isCharging, setIsCharging }: BatteryMenuProps) =
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2">
           <Battery className={`w-5 h-5 ${getBatteryColor()}`} />
-          <span className="font-medium">Battery</span>
+          <span className="font-medium">{t('battery')}</span>
         </div>
         <div className="flex items-center space-x-1">
           {isCharging && <Zap className="w-4 h-4 text-green-400" />}
@@ -64,12 +66,12 @@ const BatteryMenu = ({ onClose, isCharging, setIsCharging }: BatteryMenuProps) =
 
       {/* Power Mode */}
       <div className="mb-4">
-        <div className="text-sm font-medium mb-2">Power mode</div>
+        <div className="text-sm font-medium mb-2">{t('powerMode')}</div>
         <div className="space-y-1">
           {[
-            { id: 'saver', name: 'Battery saver', desc: 'Extends battery life' },
-            { id: 'balanced', name: 'Balanced', desc: 'Recommended' },
-            { id: 'performance', name: 'Best performance', desc: 'Favors performance' },
+            { id: 'saver', name: t('batterySaver'), desc: 'Extends battery life' },
+            { id: 'balanced', name: t('balanced'), desc: t('recommended') },
+            { id: 'performance', name: t('bestPerformance'), desc: 'Favors performance' },
           ].map(mode => (
             <button
               key={mode.id}
@@ -93,7 +95,7 @@ const BatteryMenu = ({ onClose, isCharging, setIsCharging }: BatteryMenuProps) =
             isCharging ? 'bg-green-500/20 text-green-400' : 'bg-accent hover:bg-accent/80'
           }`}
         >
-          {isCharging ? '🔌 Charging' : '🔌 Plug In'}
+          {isCharging ? `🔌 ${t('charging')}` : `🔌 ${t('plugIn')}`}
         </button>
         <button className="p-2 bg-accent hover:bg-accent/80 rounded-lg transition-os text-xs">
           ⚡ Power Plan
@@ -103,7 +105,7 @@ const BatteryMenu = ({ onClose, isCharging, setIsCharging }: BatteryMenuProps) =
       {/* Footer */}
       <div className="border-t border-white/10 pt-3">
         <button className="text-xs text-primary hover:underline">
-          Battery settings
+          {t('batterySettings')}
         </button>
       </div>
     </div>

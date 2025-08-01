@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Volume2, VolumeX, Volume1, VolumeOff } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface VolumeMenuProps {
   onClose: () => void;
 }
 
 const VolumeMenu = ({ onClose }: VolumeMenuProps) => {
+  const { t } = useLanguage();
   const [masterVolume, setMasterVolume] = useState(75);
   const [systemVolume, setSystemVolume] = useState(60);
   const [isMuted, setIsMuted] = useState(false);
@@ -35,7 +37,7 @@ const VolumeMenu = ({ onClose }: VolumeMenuProps) => {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2">
           <VolumeIcon className="w-5 h-5 text-primary" />
-          <span className="font-medium">Volume</span>
+          <span className="font-medium">{t('volume')}</span>
         </div>
         <button
           onClick={() => setIsMuted(!isMuted)}
@@ -53,7 +55,7 @@ const VolumeMenu = ({ onClose }: VolumeMenuProps) => {
       {/* Master Volume */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm">Master</span>
+          <span className="text-sm">{t('master')}</span>
           <span className="text-sm text-muted-foreground">
             {isMuted ? 'Muted' : `${masterVolume}%`}
           </span>
@@ -73,7 +75,7 @@ const VolumeMenu = ({ onClose }: VolumeMenuProps) => {
       {/* System Sounds */}
       <div className="mb-4">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm">System</span>
+          <span className="text-sm">{t('system')}</span>
           <span className="text-sm text-muted-foreground">{systemVolume}%</span>
         </div>
         <input
@@ -99,7 +101,7 @@ const VolumeMenu = ({ onClose }: VolumeMenuProps) => {
       {/* Footer */}
       <div className="border-t border-white/10 pt-3">
         <button className="text-xs text-primary hover:underline">
-          Sound settings
+          {t('soundSettings')}
         </button>
       </div>
     </div>

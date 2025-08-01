@@ -1,4 +1,5 @@
 import { Power, User, Settings, FolderOpen, FileText, StickyNote, Monitor } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface StartMenuProps {
   onAppClick: (appName: string) => void;
@@ -6,17 +7,19 @@ interface StartMenuProps {
 }
 
 const StartMenu = ({ onAppClick, onClose }: StartMenuProps) => {
+  const { t } = useLanguage();
+  
   const apps = [
-    { name: 'File Explorer', icon: FolderOpen, description: 'Browse files and folders' },
-    { name: 'Text Editor', icon: FileText, description: 'Edit text documents' },
-    { name: 'Notes', icon: StickyNote, description: 'Take quick notes' },
-    { name: 'Settings', icon: Settings, description: 'System preferences' },
+    { name: 'File Explorer', displayName: t('fileExplorer'), icon: FolderOpen, description: 'Browse files and folders' },
+    { name: 'Text Editor', displayName: t('textEditor'), icon: FileText, description: 'Edit text documents' },
+    { name: 'Notes', displayName: t('notes'), icon: StickyNote, description: 'Take quick notes' },
+    { name: 'Settings', displayName: t('settings'), icon: Settings, description: 'System preferences' },
   ];
 
   const powerOptions = [
-    { name: 'Sleep', action: () => console.log('Sleep mode') },
-    { name: 'Restart', action: () => window.location.reload() },
-    { name: 'Shutdown', action: () => {
+    { name: t('sleep'), action: () => console.log('Sleep mode') },
+    { name: t('restart'), action: () => window.location.reload() },
+    { name: t('shutdown'), action: () => {
       // We'll implement proper shutdown later
       console.log('Shutdown');
     }},
@@ -34,13 +37,13 @@ const StartMenu = ({ onAppClick, onClose }: StartMenuProps) => {
         </div>
         <div>
           <div className="font-medium text-foreground">NidOS User</div>
-          <div className="text-xs text-muted-foreground">Administrator</div>
+          <div className="text-xs text-muted-foreground">{t('administrator')}</div>
         </div>
       </div>
 
       {/* Apps Section */}
       <div className="mb-4">
-        <div className="text-xs font-medium text-muted-foreground mb-2 px-2">Applications</div>
+        <div className="text-xs font-medium text-muted-foreground mb-2 px-2">{t('applications')}</div>
         <div className="space-y-1">
           {apps.map(app => (
             <button
@@ -52,7 +55,7 @@ const StartMenu = ({ onAppClick, onClose }: StartMenuProps) => {
                 <app.icon className="w-4 h-4 text-accent-foreground" />
               </div>
               <div>
-                <div className="font-medium text-sm text-foreground">{app.name}</div>
+                <div className="font-medium text-sm text-foreground">{app.displayName}</div>
                 <div className="text-xs text-muted-foreground">{app.description}</div>
               </div>
             </button>

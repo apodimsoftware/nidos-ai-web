@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Wifi, WifiOff, Lock, Signal } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface Network {
   name: string;
@@ -13,6 +14,7 @@ interface WifiMenuProps {
 }
 
 const WifiMenu = ({ onClose }: WifiMenuProps) => {
+  const { t } = useLanguage();
   const [isWifiEnabled, setIsWifiEnabled] = useState(true);
   const [networks, setNetworks] = useState<Network[]>([
     { name: 'HOME_NETWORK_5G', signal: 4, secured: true, connected: true },
@@ -82,7 +84,7 @@ const WifiMenu = ({ onClose }: WifiMenuProps) => {
                 <div className="text-left">
                   <div className="text-sm font-medium">{network.name}</div>
                   {network.connected && (
-                    <div className="text-xs text-primary">Connected</div>
+                    <div className="text-xs text-primary">{t('connected')}</div>
                   )}
                 </div>
               </div>
@@ -99,7 +101,7 @@ const WifiMenu = ({ onClose }: WifiMenuProps) => {
       {/* Footer */}
       <div className="border-t border-white/10 mt-4 pt-3">
         <button className="text-xs text-primary hover:underline">
-          Network & Internet settings
+          {t('networkSettings')}
         </button>
       </div>
     </div>
