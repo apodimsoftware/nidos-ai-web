@@ -83,8 +83,8 @@ const BiosScreen = ({ onExitBios, onReboot }: BiosScreenProps) => {
               <div>
                 <h3 className="text-cyan-400 mb-2">System Information</h3>
                 <div className="space-y-1 text-sm">
-                  <div>BIOS Version: v0.0.1</div>
-                  <div>Build Date: 20241128</div>
+                  <div>BIOS Version: v1.0.1</div>
+                  <div>Build Date: 01082025</div>
                   <div>CPU: Ipel Core i7-12700K</div>
                   <div>Memory: 16384 MB</div>
                   <div>Storage: 1TB NVMe SSD (Samshung)</div>
