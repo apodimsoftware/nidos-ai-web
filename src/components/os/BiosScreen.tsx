@@ -277,7 +277,7 @@ const BiosScreen = ({ onExitBios, onReboot }: BiosScreenProps) => {
       <div className="absolute bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 p-1 sm:p-2">
         <div className="flex flex-col sm:flex-row justify-between text-xs text-gray-400 space-y-1 sm:space-y-0">
           <div className="text-center sm:text-left">F2: Setup | F10: Save & Exit | Esc: Exit</div>
-          <div className="text-center sm:text-right">NidOS Technologies © 2024</div>
+          <div className="text-center sm:text-right">Apodim's Software  2025</div>
         </div>
       </div>
     </div>
