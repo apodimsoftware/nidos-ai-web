@@ -240,7 +240,7 @@ const BiosScreen = ({ onExitBios, onReboot }: BiosScreenProps) => {
     <div className="fixed inset-0 bg-black text-white font-mono text-xs sm:text-sm">
       {/* Header */}
       <div className="bg-cyan-600 text-black px-2 sm:px-4 py-1 sm:py-2 flex flex-col sm:flex-row justify-between items-start sm:items-center">
-        <div className="font-bold text-sm sm:text-base">NidOS BIOS Setup Utility v0.0.1</div>
+        <div className="font-bold text-sm sm:text-base">NidOS BIOS Setup Utility v1.0.1</div>
         <div className="text-xs sm:text-sm hidden sm:block">Use ← → to navigate tabs, Enter to select, Esc to exit</div>
       </div>
 
