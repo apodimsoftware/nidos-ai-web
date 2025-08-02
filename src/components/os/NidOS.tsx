@@ -40,8 +40,16 @@ const NidOS = () => {
       }
     };
 
+    const handleSystemRestart = () => {
+      setOSState('booting');
+    };
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('systemRestart', handleSystemRestart);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('systemRestart', handleSystemRestart);
+    };
   }, []);
 
   // Prevent right-click context menu for more realistic OS feel

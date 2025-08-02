@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import wallpaper from '@/assets/nidos-wallpaper.jpg';
 import Taskbar from './Taskbar';
 import StartMenu from './StartMenu';
@@ -7,6 +7,7 @@ import FileExplorer from '../apps/FileExplorer';
 import TextEditor from '../apps/TextEditor';
 import NotesApp from '../apps/NotesApp';
 import Settings from '../apps/Settings';
+import VirusErrorScreen from './VirusErrorScreen';
 
 export interface AppWindow {
   id: string;
@@ -20,6 +21,7 @@ const Desktop = () => {
   const [showStartMenu, setShowStartMenu] = useState(false);
   const [openWindows, setOpenWindows] = useState<AppWindow[]>([]);
   const [nextZIndex, setNextZIndex] = useState(1000);
+  const [showVirusErrors, setShowVirusErrors] = useState(false);
 
   const openApp = (appName: string) => {
     const appConfigs = {
@@ -73,6 +75,29 @@ const Desktop = () => {
     );
     setNextZIndex(prev => prev + 1);
   };
+
+  // Listen for virus execution
+  useEffect(() => {
+    const handleRunVirus = () => {
+      setShowVirusErrors(true);
+    };
+
+    const handleVirusRestart = () => {
+      setShowVirusErrors(false);
+      // Trigger OS restart
+      window.dispatchEvent(new CustomEvent('systemRestart'));
+    };
+
+    window.addEventListener('runVirus', handleRunVirus);
+    
+    return () => {
+      window.removeEventListener('runVirus', handleRunVirus);
+    };
+  }, []);
+
+  if (showVirusErrors) {
+    return <VirusErrorScreen onRestart={() => window.dispatchEvent(new CustomEvent('systemRestart'))} />;
+  }
 
   return (
     <div 

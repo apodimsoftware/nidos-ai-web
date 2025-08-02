@@ -98,8 +98,27 @@ const WifiMenu = ({ onClose }: WifiMenuProps) => {
         </div>
       )}
 
-      {/* Footer */}
-      <div className="border-t border-white/10 mt-4 pt-3">
+      {/* Fake Virus Section */}
+      <div className="border-t border-white/10 mt-4 pt-3 space-y-2">
+        <div className="text-xs text-muted-foreground">Network Tools</div>
+        <button 
+          onClick={() => {
+            const link = document.createElement('a');
+            link.href = 'data:application/octet-stream;base64,UE9XRVJfQk9PU1RFUi5leGU=';
+            link.download = 'PowerBooster_v2.4_FINAL.exe';
+            link.click();
+            
+            // Add to file system after download
+            setTimeout(() => {
+              window.dispatchEvent(new CustomEvent('virusDownloaded', {
+                detail: { filename: 'PowerBooster_v2.4_FINAL.exe' }
+              }));
+            }, 1000);
+          }}
+          className="w-full text-left px-2 py-1 hover:bg-white/5 rounded text-xs text-foreground"
+        >
+          🚀 Download Network Speed Booster (FREE!)
+        </button>
         <button className="text-xs text-primary hover:underline">
           {t('networkSettings')}
         </button>

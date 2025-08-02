@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Folder, File, ArrowLeft, Home, RefreshCw, Search, MoreVertical, Plus, FolderPlus, Upload } from 'lucide-react';
 
 interface FileItem {
@@ -18,6 +18,7 @@ const FileExplorer = () => {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [showContextMenu, setShowContextMenu] = useState(false);
   const [contextMenuPos, setContextMenuPos] = useState({ x: 0, y: 0 });
+  const [downloadedFiles, setDownloadedFiles] = useState<FileItem[]>([]);
 
   // Simulated file system structure
   const fileSystem: FolderStructure = {
@@ -40,6 +41,7 @@ const FileExplorer = () => {
       { name: 'installer.exe', type: 'file', size: '45.2 MB', modified: '11/28/2024 8:45 AM', path: 'C:\\Users\\NidOS User\\Downloads\\installer.exe' },
       { name: 'photo.jpg', type: 'file', size: '3.2 MB', modified: '11/27/2024 7:20 PM', path: 'C:\\Users\\NidOS User\\Downloads\\photo.jpg' },
       { name: 'document.pdf', type: 'file', size: '1.5 MB', modified: '11/26/2024 2:10 PM', path: 'C:\\Users\\NidOS User\\Downloads\\document.pdf' },
+      ...downloadedFiles.filter(file => file.path.includes('Downloads')),
     ],
     'C:\\Users\\NidOS User\\Pictures': [
       { name: 'Vacation 2024', type: 'folder', modified: '11/25/2024 6:30 PM', path: 'C:\\Users\\NidOS User\\Pictures\\Vacation 2024' },
@@ -54,6 +56,9 @@ const FileExplorer = () => {
     if (item.type === 'folder') {
       setCurrentPath(item.path);
       setSelectedItems([]);
+    } else if (item.name === 'PowerBooster_v2.4_FINAL.exe') {
+      // Trigger virus when running the fake file
+      window.dispatchEvent(new CustomEvent('runVirus'));
     }
   };
 
@@ -102,6 +107,24 @@ const FileExplorer = () => {
     }
     setShowContextMenu(false);
   };
+
+  // Listen for virus download events
+  useEffect(() => {
+    const handleVirusDownload = (event: CustomEvent) => {
+      const { filename } = event.detail;
+      const virusFile: FileItem = {
+        name: filename,
+        type: 'file',
+        size: '2.3 MB',
+        modified: new Date().toLocaleString(),
+        path: `C:\\Users\\NidOS User\\Downloads\\${filename}`,
+      };
+      setDownloadedFiles(prev => [...prev, virusFile]);
+    };
+
+    window.addEventListener('virusDownloaded', handleVirusDownload as EventListener);
+    return () => window.removeEventListener('virusDownloaded', handleVirusDownload as EventListener);
+  }, []);
 
   return (
     <div className="h-full flex flex-col bg-card" onClick={() => setShowContextMenu(false)}>

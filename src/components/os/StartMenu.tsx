@@ -27,7 +27,7 @@ const StartMenu = ({ onAppClick, onClose }: StartMenuProps) => {
 
   return (
     <div 
-      className="fixed bottom-12 left-2 w-80 glass-panel backdrop-blur-xl rounded-lg p-4 os-slide-up z-40"
+      className="fixed bottom-12 left-2 w-96 glass-panel backdrop-blur-xl rounded-lg p-4 os-slide-up z-40"
       onClick={(e) => e.stopPropagation()}
     >
       {/* User Section */}
