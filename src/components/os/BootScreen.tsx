@@ -118,7 +118,7 @@ const BootScreen = ({ onBootComplete, onEnterBios }: BootScreenProps) => {
         <div className="absolute bottom-8 text-xs text-gray-500 font-mono text-center">
           Made with Lovable AI. It's also{' '}
           <a 
-            href="https://github.com/apodimsoftware/nidos-ai/" 
+            href="https://github.com/apodimsoftware/nidos-ai-web/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-primary hover:underline"
