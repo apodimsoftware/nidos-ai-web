@@ -7,6 +7,7 @@ import FileExplorer from '../apps/FileExplorer';
 import TextEditor from '../apps/TextEditor';
 import NotesApp from '../apps/NotesApp';
 import Settings from '../apps/Settings';
+import NetworkApp from '../apps/NetworkApp';
 import VirusErrorScreen from './VirusErrorScreen';
 
 export interface AppWindow {
@@ -29,6 +30,7 @@ const Desktop = () => {
       'Text Editor': { component: TextEditor, title: 'Text Editor' },
       'Notes': { component: NotesApp, title: 'Notes' },
       'Settings': { component: Settings, title: 'Settings' },
+      'Network': { component: NetworkApp, title: 'Network' },
     };
 
     const config = appConfigs[appName as keyof typeof appConfigs];
@@ -113,6 +115,7 @@ const Desktop = () => {
             className="flex flex-col items-center p-2 rounded-lg hover:bg-white/10 cursor-pointer transition-os group"
             onDoubleClick={() => {
               if (icon === 'My Computer') openApp('File Explorer');
+              if (icon === 'Network') openApp('Network');
             }}
           >
             <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-1 group-hover:scale-105 transition-transform">

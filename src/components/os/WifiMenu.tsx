@@ -98,20 +98,8 @@ const WifiMenu = ({ onClose }: WifiMenuProps) => {
         </div>
       )}
 
-      {/* Fake Virus Section */}
-      <div className="border-t border-white/10 mt-4 pt-3 space-y-2">
-        <div className="text-xs text-muted-foreground">Network Tools</div>
-        <button 
-          onClick={() => {
-            // Just simulate the download within the app
-            window.dispatchEvent(new CustomEvent('virusDownloaded', {
-              detail: { filename: 'PowerBooster_v2.4_FINAL.exe' }
-            }));
-          }}
-          className="w-full text-left px-2 py-1 hover:bg-white/5 rounded text-xs text-foreground"
-        >
-          🚀 Download Network Speed Booster (FREE!)
-        </button>
+      {/* Footer */}
+      <div className="border-t border-white/10 mt-4 pt-3">
         <button className="text-xs text-primary hover:underline">
           {t('networkSettings')}
         </button>
