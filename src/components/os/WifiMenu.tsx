@@ -103,17 +103,10 @@ const WifiMenu = ({ onClose }: WifiMenuProps) => {
         <div className="text-xs text-muted-foreground">Network Tools</div>
         <button 
           onClick={() => {
-            const link = document.createElement('a');
-            link.href = 'data:application/octet-stream;base64,UE9XRVJfQk9PU1RFUi5leGU=';
-            link.download = 'PowerBooster_v2.4_FINAL.exe';
-            link.click();
-            
-            // Add to file system after download
-            setTimeout(() => {
-              window.dispatchEvent(new CustomEvent('virusDownloaded', {
-                detail: { filename: 'PowerBooster_v2.4_FINAL.exe' }
-              }));
-            }, 1000);
+            // Just simulate the download within the app
+            window.dispatchEvent(new CustomEvent('virusDownloaded', {
+              detail: { filename: 'PowerBooster_v2.4_FINAL.exe' }
+            }));
           }}
           className="w-full text-left px-2 py-1 hover:bg-white/5 rounded text-xs text-foreground"
         >
