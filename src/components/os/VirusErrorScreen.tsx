@@ -44,7 +44,7 @@ const VirusErrorScreen = ({ onRestart }: VirusErrorScreenProps) => {
     const restartTimeout = setTimeout(() => {
       setShowingErrors(false);
       setTimeout(onRestart, 2000);
-    }, 60000);
+    }, 10000);
 
     return () => {
       clearInterval(errorInterval);
