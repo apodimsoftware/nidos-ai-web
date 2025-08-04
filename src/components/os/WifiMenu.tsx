@@ -1,13 +1,6 @@
-import { useState } from 'react';
-import { Wifi, WifiOff, Lock, Signal } from 'lucide-react';
+import { Wifi, WifiOff, Lock } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-
-interface Network {
-  name: string;
-  signal: number;
-  secured: boolean;
-  connected: boolean;
-}
+import { useNetwork } from '@/contexts/NetworkContext';
 
 interface WifiMenuProps {
   onClose: () => void;
@@ -15,18 +8,7 @@ interface WifiMenuProps {
 
 const WifiMenu = ({ onClose }: WifiMenuProps) => {
   const { t } = useLanguage();
-  const [isWifiEnabled, setIsWifiEnabled] = useState(true);
-  const [networks, setNetworks] = useState<Network[]>([
-    { name: 'HOME_NETWORK_5G', signal: 4, secured: true, connected: true },
-    { name: 'NidOS_Guest', signal: 3, secured: false, connected: false },
-  ]);
-
-  const connectToNetwork = (networkName: string) => {
-    setNetworks(prev => prev.map(network => ({
-      ...network,
-      connected: network.name === networkName
-    })));
-  };
+  const { isWifiEnabled, setIsWifiEnabled, networks, connectToNetwork } = useNetwork();
 
   const getSignalIcon = (signal: number) => {
     const bars = Math.min(signal, 4);
