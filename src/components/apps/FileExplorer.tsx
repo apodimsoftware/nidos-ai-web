@@ -41,7 +41,6 @@ const FileExplorer = () => {
       { name: 'installer.exe', type: 'file', size: '45.2 MB', modified: '11/28/2024 8:45 AM', path: 'C:\\Users\\NidOS User\\Downloads\\installer.exe' },
       { name: 'photo.jpg', type: 'file', size: '3.2 MB', modified: '11/27/2024 7:20 PM', path: 'C:\\Users\\NidOS User\\Downloads\\photo.jpg' },
       { name: 'document.pdf', type: 'file', size: '1.5 MB', modified: '11/26/2024 2:10 PM', path: 'C:\\Users\\NidOS User\\Downloads\\document.pdf' },
-      ...downloadedFiles.filter(file => file.path.includes('Downloads')),
     ],
     'C:\\Users\\NidOS User\\Pictures': [
       { name: 'Vacation 2024', type: 'folder', modified: '11/25/2024 6:30 PM', path: 'C:\\Users\\NidOS User\\Pictures\\Vacation 2024' },
@@ -50,7 +49,16 @@ const FileExplorer = () => {
     ]
   };
 
-  const currentItems = fileSystem[currentPath] || [];
+  // Get current items including downloaded files for Downloads folder
+  const getCurrentItems = () => {
+    const baseItems = fileSystem[currentPath] || [];
+    if (currentPath === 'C:\\Users\\NidOS User\\Downloads') {
+      return [...baseItems, ...downloadedFiles];
+    }
+    return baseItems;
+  };
+
+  const currentItems = getCurrentItems();
 
   const handleItemClick = (item: FileItem) => {
     if (item.type === 'folder') {
