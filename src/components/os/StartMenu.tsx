@@ -145,14 +145,6 @@ const StartMenu = ({ onAppClick, onClose }: StartMenuProps) => {
               </>
             )}
           </div>
-
-          {/* All Programs Link */}
-          <div className="border-t border-white/10 p-3">
-            <button className="w-full flex items-center justify-between p-2 hover:bg-blue-500/30 rounded transition-all duration-200">
-              <span className="text-white text-sm font-medium">All Programs</span>
-              <ChevronRight className="w-4 h-4 text-white/70" />
-            </button>
-          </div>
         </div>
 
         {/* Right Column - System Items */}
