@@ -12,7 +12,7 @@ interface WindowProps {
 }
 
 const Window = ({ id, title, children, onClose, onMinimize, onFocus, zIndex }: WindowProps) => {
-  const [position, setPosition] = useState({ x: 100, y: 100 });
+  const [position, setPosition] = useState({ x: 150, y: 50 });
   const [isDragging, setIsDragging] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
@@ -35,9 +35,11 @@ const Window = ({ id, title, children, onClose, onMinimize, onFocus, zIndex }: W
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (isDragging && !isMaximized) {
+      // Ensure window doesn't go below the taskbar area (80px from bottom)
+      const maxY = window.innerHeight - 80 - 40; // 80px taskbar + 40px margin
       setPosition({
         x: e.clientX - dragOffset.x,
-        y: Math.max(0, e.clientY - dragOffset.y),
+        y: Math.max(0, Math.min(maxY, e.clientY - dragOffset.y)),
       });
     }
   }, [isDragging, isMaximized, dragOffset]);
@@ -64,7 +66,12 @@ const Window = ({ id, title, children, onClose, onMinimize, onFocus, zIndex }: W
   }, [isDragging, handleMouseMove, handleMouseUp]);
 
   const windowStyle = isMaximized
-    ? { top: 0, left: 0, width: '100vw', height: 'calc(100vh - 80px)' }
+    ? { 
+        top: 10, 
+        left: 10, 
+        width: 'calc(100vw - 20px)', 
+        height: 'calc(100vh - 100px)' // Leave space for taskbar (80px) + margins
+      }
     : { 
         top: position.y, 
         left: position.x, 
