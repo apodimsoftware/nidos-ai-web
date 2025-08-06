@@ -112,18 +112,18 @@ const Desktop = () => {
         {['My Computer', 'Recycle Bin', 'Network'].map((icon, index) => (
           <div
             key={icon}
-            className="flex flex-col items-center p-2 rounded-lg hover:bg-white/10 cursor-pointer transition-os group"
+            className="flex flex-col items-center p-3 rounded-xl hover:bg-white/10 cursor-pointer transition-all duration-200 group"
             onDoubleClick={() => {
               if (icon === 'My Computer') openApp('File Explorer');
               if (icon === 'Network') openApp('Network');
             }}
           >
-            <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-1 group-hover:scale-105 transition-transform">
-              <span className="text-white text-xs font-bold">
-                {icon === 'My Computer' ? 'PC' : icon === 'Recycle Bin' ? 'RB' : 'NET'}
+            <div className="w-14 h-14 bg-white/15 backdrop-blur-lg rounded-2xl flex items-center justify-center mb-2 group-hover:scale-105 transition-all duration-200 border border-white/20">
+              <span className="text-white text-lg font-bold">
+                {icon === 'My Computer' ? '💻' : icon === 'Recycle Bin' ? '🗑️' : '🌐'}
               </span>
             </div>
-            <span className="text-white text-xs text-center drop-shadow-lg">
+            <span className="text-white text-xs text-center drop-shadow-lg font-medium">
               {icon}
             </span>
           </div>

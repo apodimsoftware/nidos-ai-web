@@ -50,153 +50,128 @@ const StartMenu = ({ onAppClick, onClose }: StartMenuProps) => {
 
   return (
     <div 
-      className="fixed bottom-12 left-0 w-[520px] h-[580px] bg-gradient-to-b from-white/20 to-white/5 backdrop-blur-xl border border-white/20 rounded-tr-lg rounded-tl-lg shadow-2xl os-slide-up z-40"
+      className="fixed bottom-16 left-1/2 transform -translate-x-1/2 w-[600px] h-[700px] bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl shadow-2xl os-slide-up z-40"
       onClick={(e) => e.stopPropagation()}
       style={{
-        background: 'linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.1) 100%)',
-        boxShadow: '0 0 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.3)'
+        background: 'linear-gradient(145deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)',
+        boxShadow: '0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1)'
       }}
     >
       {/* Main Content */}
-      <div className="flex h-full">
-        {/* Left Column - Programs */}
-        <div className="flex-1 flex flex-col">
-          {/* User Profile */}
-          <div className="flex items-center p-4 border-b border-white/10 bg-gradient-to-r from-white/10 to-transparent">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center mr-3 shadow-lg">
-              <User className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <div className="font-semibold text-white text-sm">NidOS User</div>
-              <div className="text-xs text-white/70">{t('administrator')}</div>
-            </div>
+      <div className="flex flex-col h-full">
+        {/* Search Box */}
+        <div className="p-6 pb-3">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/60" />
+            <input
+              type="text"
+              placeholder="Type here to search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/60 text-sm focus:outline-none focus:border-blue-400 focus:bg-white/15"
+            />
           </div>
+        </div>
 
-          {/* Search Box */}
-          <div className="p-3 border-b border-white/10">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
-              <input
-                type="text"
-                placeholder="Search programs and files"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-black/20 border border-white/20 rounded text-white placeholder-white/50 text-sm focus:outline-none focus:border-blue-400 focus:bg-black/30"
-              />
-            </div>
-          </div>
-
-          {/* Programs List */}
-          <div className="flex-1 overflow-y-auto">
-            {searchQuery ? (
-              <div className="p-2">
-                <div className="text-xs font-medium text-white/70 mb-2 px-2">Search Results</div>
+        {/* Content Area */}
+        <div className="flex-1 flex flex-col px-6">
+          {searchQuery ? (
+            /* Search Results */
+            <div className="flex-1">
+              <div className="text-sm font-medium text-white/80 mb-4">Search results</div>
+              <div className="grid grid-cols-6 gap-3">
                 {filteredApps.map(app => (
                   <button
                     key={app.name}
                     onClick={() => handleAppClick(app.name)}
-                    className="w-full flex items-center p-2 hover:bg-blue-500/30 rounded transition-all duration-200 text-left"
+                    className="flex flex-col items-center p-3 hover:bg-white/10 rounded-lg transition-all duration-200"
                   >
-                    <div className="w-8 h-8 bg-white/10 rounded flex items-center justify-center mr-3">
-                      <app.icon className="w-4 h-4 text-white" />
+                    <div className="w-12 h-12 bg-white/15 rounded-lg flex items-center justify-center mb-2">
+                      <app.icon className="w-6 h-6 text-white" />
                     </div>
-                    <span className="font-medium text-white text-sm">{app.displayName}</span>
+                    <span className="text-xs text-white/90 text-center leading-tight">{app.displayName}</span>
                   </button>
                 ))}
               </div>
-            ) : (
-              <>
-                {/* Pinned Programs */}
-                <div className="p-2">
-                  <div className="text-xs font-medium text-white/70 mb-2 px-2">Pinned Programs</div>
+            </div>
+          ) : (
+            /* Default View */
+            <>
+              {/* Pinned Section */}
+              <div className="mb-6">
+                <div className="text-sm font-medium text-white/80 mb-4">Pinned</div>
+                <div className="grid grid-cols-6 gap-3">
                   {pinnedApps.map(app => (
                     <button
                       key={app.name}
                       onClick={() => handleAppClick(app.name)}
-                      className="w-full flex items-center p-2 hover:bg-blue-500/30 rounded transition-all duration-200 text-left"
+                      className="flex flex-col items-center p-3 hover:bg-white/10 rounded-lg transition-all duration-200"
                     >
-                      <div className="w-8 h-8 bg-white/10 rounded flex items-center justify-center mr-3">
-                        <app.icon className="w-4 h-4 text-white" />
+                      <div className="w-12 h-12 bg-white/15 rounded-lg flex items-center justify-center mb-2">
+                        <app.icon className="w-6 h-6 text-white" />
                       </div>
-                      <span className="font-medium text-white text-sm">{app.displayName}</span>
+                      <span className="text-xs text-white/90 text-center leading-tight">{app.displayName}</span>
                     </button>
                   ))}
                 </div>
+              </div>
 
-                {/* Separator */}
-                <div className="border-t border-white/10 mx-4"></div>
-
-                {/* Recent Programs */}
-                <div className="p-2">
-                  <div className="text-xs font-medium text-white/70 mb-2 px-2">Recent Programs</div>
+              {/* Recommended Section */}
+              <div className="flex-1">
+                <div className="text-sm font-medium text-white/80 mb-4">Recommended</div>
+                <div className="space-y-2">
                   {recentApps.map(app => (
                     <button
                       key={`recent-${app.name}`}
                       onClick={() => handleAppClick(app.name)}
-                      className="w-full flex items-center p-2 hover:bg-blue-500/30 rounded transition-all duration-200 text-left"
+                      className="w-full flex items-center p-3 hover:bg-white/10 rounded-lg transition-all duration-200 text-left"
                     >
-                      <div className="w-8 h-8 bg-white/10 rounded flex items-center justify-center mr-3">
-                        <app.icon className="w-4 h-4 text-white" />
+                      <div className="w-10 h-10 bg-white/15 rounded-lg flex items-center justify-center mr-3">
+                        <app.icon className="w-5 h-5 text-white" />
                       </div>
-                      <span className="font-medium text-white text-sm">{app.displayName}</span>
+                      <div className="flex-1">
+                        <div className="text-sm font-medium text-white">{app.displayName}</div>
+                        <div className="text-xs text-white/60">Recently used</div>
+                      </div>
                     </button>
                   ))}
                 </div>
-              </>
-            )}
-          </div>
+              </div>
+            </>
+          )}
         </div>
 
-        {/* Right Column - System Items */}
-        <div className="w-48 bg-gradient-to-b from-black/20 to-black/10 border-l border-white/10">
-          <div className="p-3 space-y-1">
-            {systemItems.map(item => (
-              <button
-                key={item.name}
-                onClick={item.action}
-                className="w-full flex items-center p-2 hover:bg-blue-500/30 rounded transition-all duration-200 text-left"
-              >
-                <item.icon className="w-4 h-4 text-white mr-3" />
-                <span className="text-white text-sm">{item.name}</span>
-              </button>
-            ))}
+        {/* Bottom Bar */}
+        <div className="flex items-center justify-between p-6 pt-3 border-t border-white/10">
+          {/* User Profile */}
+          <div className="flex items-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mr-3">
+              <User className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <div className="text-sm font-medium text-white">NidOS User</div>
+              <div className="text-xs text-white/60">{t('administrator')}</div>
+            </div>
           </div>
 
-          {/* Bottom Section */}
-          <div className="absolute bottom-0 right-0 w-48 border-t border-white/10 bg-gradient-to-b from-black/10 to-black/20">
-            {/* Search Box Bottom */}
-            <div className="p-3 border-b border-white/10">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="w-full pl-10 pr-4 py-1.5 bg-black/20 border border-white/20 rounded text-white placeholder-white/50 text-xs focus:outline-none focus:border-blue-400"
-                />
-              </div>
-            </div>
-
-            {/* Power Button */}
-            <div className="p-2 flex justify-end">
-              <div className="relative group">
-                <button className="w-10 h-10 bg-gradient-to-b from-red-500 to-red-600 hover:from-red-400 hover:to-red-500 rounded flex items-center justify-center shadow-lg transition-all duration-200">
-                  <Power className="w-5 h-5 text-white" />
-                </button>
-                
-                {/* Power Options Submenu */}
-                <div className="absolute bottom-full right-0 mb-1 hidden group-hover:block">
-                  <div className="bg-black/80 backdrop-blur-xl border border-white/20 rounded p-1 min-w-[100px]">
-                    {powerOptions.map(option => (
-                      <button
-                        key={option.name}
-                        onClick={option.action}
-                        className="w-full text-left px-3 py-2 hover:bg-white/10 rounded text-white text-sm transition-colors"
-                      >
-                        {option.name}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+          {/* Power Button */}
+          <div className="relative group">
+            <button className="w-10 h-10 bg-white/15 hover:bg-white/25 rounded-lg flex items-center justify-center transition-all duration-200">
+              <Power className="w-5 h-5 text-white" />
+            </button>
+            
+            {/* Power Options Submenu */}
+            <div className="absolute bottom-full right-0 mb-2 hidden group-hover:block">
+              <div className="bg-white/20 backdrop-blur-xl border border-white/20 rounded-lg p-2 min-w-[120px]">
+                {powerOptions.map(option => (
+                  <button
+                    key={option.name}
+                    onClick={option.action}
+                    className="w-full text-left px-3 py-2 hover:bg-white/20 rounded-lg text-white text-sm transition-colors"
+                  >
+                    {option.name}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
