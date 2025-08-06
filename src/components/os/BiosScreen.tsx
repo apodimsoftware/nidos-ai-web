@@ -83,8 +83,8 @@ const BiosScreen = ({ onExitBios, onReboot }: BiosScreenProps) => {
               <div>
                 <h3 className="text-cyan-400 mb-2">System Information</h3>
                 <div className="space-y-1 text-sm">
-                  <div>BIOS Version: v1.0.2</div>
-                  <div>Build Date: 02082025</div>
+                  <div>BIOS Version: v1.0.3</div>
+                  <div>Build Date: 04082025</div>
                   <div>CPU: Ipel Core i7-12700K</div>
                   <div>Memory: 16384 MB</div>
                   <div>Storage: 1TB NVMe SSD (Samshung)</div>
@@ -240,7 +240,7 @@ const BiosScreen = ({ onExitBios, onReboot }: BiosScreenProps) => {
     <div className="fixed inset-0 bg-black text-white font-mono text-xs sm:text-sm">
       {/* Header */}
       <div className="bg-cyan-600 text-black px-2 sm:px-4 py-1 sm:py-2 flex flex-col sm:flex-row justify-between items-start sm:items-center">
-        <div className="font-bold text-sm sm:text-base">NidOS BIOS Setup Utility v1.0.2</div>
+        <div className="font-bold text-sm sm:text-base">NidOS BIOS Setup Utility v1.0.3</div>
         <div className="text-xs sm:text-sm hidden sm:block">Use ← → to navigate tabs, Enter to select, Esc to exit</div>
       </div>
 
