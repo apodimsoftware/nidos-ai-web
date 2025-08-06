@@ -64,7 +64,7 @@ const Window = ({ id, title, children, onClose, onMinimize, onFocus, zIndex }: W
   }, [isDragging, handleMouseMove, handleMouseUp]);
 
   const windowStyle = isMaximized
-    ? { top: 0, left: 0, width: '100vw', height: 'calc(100vh - 48px)' }
+    ? { top: 0, left: 0, width: '100vw', height: 'calc(100vh - 80px)' }
     : { 
         top: position.y, 
         left: position.x, 

@@ -75,7 +75,7 @@ const Taskbar = ({ onStartClick, openWindows, onWindowClick, onWindowClose }: Ta
         className="flex items-center justify-center p-2 hover:bg-white/15 rounded-xl transition-all duration-200 mr-2"
       >
         <div className="w-7 h-7 bg-gradient-primary rounded-lg flex items-center justify-center">
-          <span className="text-white text-sm font-bold">⊞</span>
+          <span className="text-white text-sm font-bold">N</span>
         </div>
       </button>
 
