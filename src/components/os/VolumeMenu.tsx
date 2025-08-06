@@ -30,8 +30,11 @@ const VolumeMenu = ({ onClose }: VolumeMenuProps) => {
 
   return (
     <div 
-      className="fixed bottom-14 right-4 w-72 glass-panel backdrop-blur-xl rounded-lg p-4 os-slide-up z-40"
+      className="fixed bottom-20 left-1/2 transform -translate-x-1/2 w-72 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 os-slide-up z-40 shadow-2xl"
       onClick={(e) => e.stopPropagation()}
+      style={{
+        background: 'linear-gradient(145deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)'
+      }}
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-4">

@@ -155,13 +155,28 @@ const StartMenu = ({ onAppClick, onClose }: StartMenuProps) => {
           </div>
 
           {/* Power Button */}
-          <div className="relative group">
-            <button className="w-10 h-10 bg-white/15 hover:bg-white/25 rounded-lg flex items-center justify-center transition-all duration-200">
+          <div className="relative">
+            <button 
+              className="w-10 h-10 bg-white/15 hover:bg-white/25 rounded-lg flex items-center justify-center transition-all duration-200"
+              onMouseEnter={(e) => {
+                const submenu = e.currentTarget.nextElementSibling as HTMLElement;
+                if (submenu) submenu.style.display = 'block';
+              }}
+            >
               <Power className="w-5 h-5 text-white" />
             </button>
             
             {/* Power Options Submenu */}
-            <div className="absolute bottom-full right-0 mb-2 hidden group-hover:block">
+            <div 
+              className="absolute bottom-full right-0 mb-2 hidden"
+              style={{ display: 'none' }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.display = 'block';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.display = 'none';
+              }}
+            >
               <div className="bg-white/20 backdrop-blur-xl border border-white/20 rounded-lg p-2 min-w-[120px]">
                 {powerOptions.map(option => (
                   <button
