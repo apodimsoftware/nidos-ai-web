@@ -47,7 +47,7 @@ const BootScreen = ({ onBootComplete, onEnterBios }: BootScreenProps) => {
     <div className="fixed inset-0 bg-black flex flex-col items-center justify-center text-white">
       {/* BIOS-style header */}
       <div className="absolute top-8 left-8 text-sm font-mono text-gray-400">
-        NidOS BIOS v1.0.2 - Build 02082025
+        NidOS BIOS v1.0.3 - Build 04082025
       </div>
       
       {/* BIOS entry button */}
