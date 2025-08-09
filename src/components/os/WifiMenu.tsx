@@ -27,7 +27,7 @@ const WifiMenu = ({ onClose }: WifiMenuProps) => {
 
   return (
     <div 
-      className="fixed bottom-18 left-1/2 transform -translate-x-1/2 w-80 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 os-slide-up z-40 shadow-2xl"
+      className="fixed bottom-[72px] left-1/2 transform -translate-x-1/2 w-80 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 os-slide-up z-40 shadow-2xl"
       onClick={(e) => e.stopPropagation()}
       style={{
         background: 'linear-gradient(145deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)'
