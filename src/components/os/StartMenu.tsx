@@ -50,7 +50,7 @@ const StartMenu = ({ onAppClick, onClose }: StartMenuProps) => {
 
   return (
     <div 
-      className="fixed bottom-16 left-4 w-[600px] h-[700px] bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl shadow-2xl os-slide-up z-40"
+      className="fixed bottom-20 left-4 w-[600px] h-[700px] bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl shadow-2xl os-slide-up z-40"
       onClick={(e) => e.stopPropagation()}
       style={{
         background: 'linear-gradient(145deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)',
